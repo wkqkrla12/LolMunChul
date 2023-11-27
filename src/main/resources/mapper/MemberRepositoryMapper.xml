@@ -1,0 +1,13 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lolmunchul.web.repository.MemberRepository">
+
+    <select id="findAll" resultType="Member">
+    select *
+    from community
+    </select>
+
+
+</mapper>
