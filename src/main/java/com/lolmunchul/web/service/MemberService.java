@@ -6,4 +6,10 @@ import java.util.List;
 
 public interface MemberService {
     List<Member> getList();
+
+    void add(Member member);
+
+    Member getByEmail(String email);
+
+    String getRoleByEmail(String email);
 }

@@ -3,19 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
 
-
 <section>
-    <div th:each="list:${list}">
-        <p th:text ="${list.id}"></p>
-        <p th:text ="${list.email}"></p>
-        <p th:text ="${list.password}"></p>
-    </div>
 
-
+    <form method="post" action="join">
+        <p>이메일을 입력해주세요</p>
+        <input  type="text" placeholder="name" name="id">
+        <input  type="email" placeholder="email" name="email">
+        <input type="password" placeholder="password" name="password">
+        <input type="text" placeholder="username" name="username">
+        <input type="text" placeholder="nickname" name="nickname">
+        <input type="submit">
+    </form>
 </section>
+
+
+
+
+<!--<section>-->
+<!--    <div th:each="list:${list}">-->
+<!--        <p th:text ="${list.id}"></p>-->
+<!--        <p th:text ="${list.email}"></p>-->
+<!--        <p th:text ="${list.password}"></p>-->
+<!--    </div>-->
+
+
+<!--</section>-->
 
 </body>
 </html>

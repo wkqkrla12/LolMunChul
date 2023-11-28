@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,8 +8,18 @@
 <body>
 
 <div>
-<a href="/join">hello</a>
+<a href="user/join">회원가입</a>
 </div>
+<div>
+    <a href="/login">로그인</a>
+</div>
+
+
+<input class="search" name="q" type="text" id="search-input"
+       sec:authorize="isAuthenticated()"
+       th:placeholder="${nickname} + '님, 오늘은 옥정 어떠세요?'">
+<input class="search placeholder-effect" name="q" type="text" id="search-input"
+       sec:authorize="!isAuthenticated()" placeholder="드시고 싶은 메뉴를 입력해보세요">
 
 </body>
 </html>

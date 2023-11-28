@@ -4,10 +4,16 @@
 
 <mapper namespace="com.lolmunchul.web.repository.MemberRepository">
 
-    <select id="findAll" resultType="Member">
-    select *
-    from community
-    </select>
+<!--    <select id="findAll" resultType="Member">-->
+<!--    select *-->
+<!--    from community-->
+<!--    </select>-->
+
+    <insert id="save" parameterType="Member">
+        insert into
+        member(id, email, password, username, nickname ) values(#{id}, #{email}, #{password},#{username},#{nickname})
+
+    </insert>
 
 
 </mapper>
