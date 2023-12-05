@@ -1,29 +1,31 @@
 package com.lolmunchul.web.security;
 
-import com.lolmunchul.web.entity.Member;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class MechooriUserDetails implements UserDetails {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+
+import com.lolmunchul.web.entity.Member;
+
+public class LolmunchulUserDetails implements UserDetails, OAuth2User {
 
     private Member member;
     private Map<String,Object> attributes;
     private List<GrantedAuthority> authorities;
 
     //일반 회원
-    public MechooriUserDetails(Member member) {
+    public LolmunchulUserDetails(Member member) {
         this.member = member;
     }
 
-    //소셜 회원
-    public MechooriUserDetails(Member member, Map<String,Object> attributes) {
-        this.member = member;
-        this.attributes = attributes;
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
     }
 
     @Override
@@ -36,23 +38,36 @@ public class MechooriUserDetails implements UserDetails {
     }
 
     @Override
+    public String getUsername() {
+        return member.getUsername();
+    }
+
+    @Override
     public String getPassword() {
         return member.getPassword();
     }
 
     @Override
-    public String getUsername() {
-        return member.getUsername();
+    public String getName() {
+        return (String) attributes.get("name");
     }
 
     public int getId() {
         return member.getId();
     }
 
+    public String getNickname() {
+        return member.getNickname();
+    }
+    public void setNickname(String nickname){
+        this.member.setNickname(nickname);
+    }
 
     public String getEmail() {
         return member.getEmail();
     }
+
+
 
     @Override
     public boolean isAccountNonExpired() {

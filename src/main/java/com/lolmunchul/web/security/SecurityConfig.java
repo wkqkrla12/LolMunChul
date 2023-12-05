@@ -1,10 +1,11 @@
 package com.lolmunchul.web.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -14,25 +15,26 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
     public SecurityConfig(AuthenticationSuccessHandler authenticationSuccessHandler) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
 
+    // 권한을 위한 필터 객체
+    // HttpSecurity가 필터를 만들 수 있도록 하는 class
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 // cross origin에 대해 403을 띄우는 것 방지(안전 모드를 해제하는 느낌)
-                .csrf(csrf->csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 // h2-console 옵션 disable
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 //액세스 권한 설정
                 .authorizeHttpRequests(
                         auth->auth
-//                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                                 .requestMatchers("/user/my-page/**").hasAnyRole("ADMIN", "MEMBER")
-                                .requestMatchers("/user/login/**").hasAnyRole("ADMIN", "MEMBER")
+//                                .requestMatchers("/user/login/**").hasAnyRole("ADMIN", "MEMBER")
                                 .anyRequest().permitAll()) // 이외의 요청은 전부 승인함
                 .formLogin(
                         login -> login

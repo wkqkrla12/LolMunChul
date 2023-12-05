@@ -1,34 +1,43 @@
 package com.lolmunchul.web;
 
+import com.lolmunchul.web.entity.Member;
+import com.lolmunchul.web.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 class LolmunchulApplicationTests {
 
-
-    public int[] sum(int[] arr){
-
-        int[] answer = new int[arr.length];
-
-        answer[0] = arr[0];
-
-        for(int i = 1; i<arr.length; i++){
-            answer[i] = answer[i-1] + arr[i];
-        }
-        return answer;
-    }
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Test
-    void contextLoads() {
+    void saveMemberTest() {
+        // given
+        Member member = new Member();
+        member.setEmail("test@example.com");
+        member.setPassword("password");
+        member.setRoleId(1);
+        member.setRole("USER");
+        member.setUsername("testuser");
+        member.setNickname("Test User");
 
-        int[] arr = {1,1,1,1,2,6,1,2};
+        // when
+        memberRepository.save(member);
 
-
-
-        System.out.println(Arrays.toString(sum(arr)));
+        // then
+        Member foundMember = memberRepository.findByEmail("test@example.com");
+        assertThat(foundMember).isNotNull();
+        assertThat(foundMember.getEmail()).isEqualTo("test@example.com");
+        assertThat(foundMember.getPassword()).isEqualTo("password");
+        assertThat(foundMember.getRoleId()).isEqualTo(1);
+        assertThat(foundMember.getRole()).isEqualTo("USER");
+        assertThat(foundMember.getUsername()).isEqualTo("testuser");
+        assertThat(foundMember.getNickname()).isEqualTo("Test User");
     }
-
 }

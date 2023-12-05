@@ -7,7 +7,7 @@ import java.util.List;
 public interface MemberService {
     List<Member> getList();
 
-    void add(Member member);
+    void  add(Member member);
 
     Member getByEmail(String email);
 

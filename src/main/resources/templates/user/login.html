@@ -1,32 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
-<!--<form action="login" method="POST">-->
-<!--  <div class="email-container">-->
-<!--    <div class="email-label">이메일</div>-->
-<!--    <div class="email-wrapper">-->
-<!--      <input class="email" type="email" name="email" placeholder="이메일을 입력해주세요" id="email" />-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="pwd-container">-->
-<!--    <div class="pwd-label">비밀번호</div>-->
-<!--    <div class="pwd-wrapper">-->
-<!--      <input class="pwd" type="password" name="password" placeholder="비밀번호을 입력해주세요" required />-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <a href="/"><button class="button button-1">로그인</button></a>-->
-<!--</form>-->
-
 <section class="login-form-section">
   <div class="login-form-container">
     <div class="login-form-contents">
-      <form action="/login" method="POST">
+      <form action="login" method="POST">
         <div class="email-container">
           <div class="email-label">이메일</div>
           <div class="email-wrapper">
@@ -38,6 +22,10 @@
           <div class="pwd-wrapper">
             <input class="pwd" type="password" name="password" placeholder="비밀번호을 입력해주세요" required />
           </div>
+        </div>
+
+        <div th:if="${param.error}" class="error">
+          아이디 혹은 비밀번호가 일치하지 않습니다.
         </div>
         <button class="button button-1">로그인</button>
       </form>

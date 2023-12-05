@@ -7,19 +7,31 @@
 </head>
 <body>
 
-<div>
+<div sec:authorize="!isAuthenticated()">
 <a href="user/join">회원가입</a>
 </div>
-<div>
-    <a href="/login">로그인</a>
+<div sec:authorize="!isAuthenticated()" >
+    <a href="user/login">로그인</a>
 </div>
 
 
-<input class="search" name="q" type="text" id="search-input"
-       sec:authorize="isAuthenticated()"
-       th:placeholder="${nickname} + '님, 오늘은 옥정 어떠세요?'">
-<input class="search placeholder-effect" name="q" type="text" id="search-input"
-       sec:authorize="!isAuthenticated()" placeholder="드시고 싶은 메뉴를 입력해보세요">
+<section class="searchZone">
+    <div class="search-bar-container">
+        <form class="search-bar" action="restaurant/list" method="get">
+            <label class="search-input" for="search-input">
+                <img src="/images/icons/search-black.svg">
+            </label>
+            <input class="search" name="q" type="text" id="search-input"
+                   sec:authorize="isAuthenticated()"
+                   th:placeholder="${#authentication.principal.nickname} + '님, 오늘은 옥정 어떠세요?'">
+            <input class="search placeholder-effect" name="q" type="text" id="search-input"
+                   sec:authorize="!isAuthenticated()" placeholder="드시고 싶은 메뉴를 입력해보세요">
 
+            <a href="/map">
+                <img class="search-map" src="/images/icons/지도아이콘.svg" alt="">
+            </a>
+        </form>
+    </div>
+</section>
 </body>
 </html>

@@ -11,9 +11,14 @@
 
     <insert id="save" parameterType="Member">
         insert into
-        member(id, email, password, username, nickname ) values(#{id}, #{email}, #{password},#{username},#{nickname})
+        member(id, email, password, username, nickname )
+        values(#{id}, #{email}, #{password},#{username},#{nickname})
 
     </insert>
+
+    <select id="findByEmail" resultType="Member">
+        select * from member where email = #{email}
+    </select>
 
 
 </mapper>

@@ -13,8 +13,8 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
-        model.addAttribute("nickname", userDetails.getUsername());
-        System.out.println(model);
+//        model.addAttribute("nickname", userDetails.getUsername());
+//        System.out.println(model);
 
         return "index";
     }

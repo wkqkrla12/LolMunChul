@@ -29,7 +29,7 @@ public class MemberServiceImp implements MemberService {
 
     @Override
     public Member getByEmail(String email) {
-        return null;
+        return repository.findByEmail(email);
     }
 
     @Override
